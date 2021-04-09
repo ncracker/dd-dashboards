@@ -3,7 +3,6 @@
    "description":"",
    "widgets":[
       {
-         "id":879106878888800,
          "layout":{
             "x":0,
             "y":0,
@@ -46,7 +45,7 @@
             "x":25,
             "y":0,
             "width":48,
-            "height":26
+            "height":13
          },
          "definition":{
             "title":"Total Builds",
@@ -98,10 +97,13 @@
             "title":"Failed Builds (Top10)",
             "title_size":"16",
             "title_align":"left",
+            "time":{
+               
+            },
             "type":"query_table",
             "requests":[
                {
-                  "aggregator":"avg",
+                  "q":"top(sum:aws.codebuild.failed_builds{$Project,$Namespace,$ENV} by {namespace,projectname,env}.as_count(), 10, 'mean', 'desc')",
                   "conditional_formats":[
                      {
                         "comparator":">",
@@ -114,8 +116,8 @@
                         "value":10
                      }
                   ],
-                  "q":"top(sum:aws.codebuild.failed_builds{$Project,$Namespace,$ENV} by {namespace,projectname,env}.as_count(), 10, 'mean', 'desc')",
                   "alias":"Failures",
+                  "aggregator":"sum",
                   "limit":10,
                   "order":"desc"
                }
@@ -250,6 +252,9 @@
                "value",
                "sum"
             ],
+            "time":{
+               
+            },
             "type":"timeseries",
             "requests":[
                {
@@ -257,35 +262,35 @@
                   "on_right_yaxis":false,
                   "metadata":[
                      {
-                        "expression":"avg:aws.codebuild.submitted_duration{*}",
-                        "alias_name":"Submitted"
+                        "expression":"avg:aws.codebuild.submitted_duration{$Project,$Namespace,$ENV}",
+                        "alias_name":"Submit"
                      },
                      {
-                        "expression":"avg:aws.codebuild.provisioning_duration{*}",
-                        "alias_name":"Provisioning"
+                        "expression":"avg:aws.codebuild.provisioning_duration{$Project,$Namespace,$ENV}",
+                        "alias_name":"Provision"
                      },
                      {
-                        "expression":"avg:aws.codebuild.download_source_duration{*}",
-                        "alias_name":"Download Source"
+                        "expression":"avg:aws.codebuild.download_source_duration{$Project,$Namespace,$ENV}",
+                        "alias_name":"Download"
                      },
                      {
-                        "expression":"avg:aws.codebuild.install_duration{*}",
+                        "expression":"avg:aws.codebuild.install_duration{$Project,$Namespace,$ENV}",
                         "alias_name":"Install"
                      },
                      {
-                        "expression":"avg:aws.codebuild.pre_build_duration{*}",
+                        "expression":"avg:aws.codebuild.pre_build_duration{$Project,$Namespace,$ENV}",
                         "alias_name":"Pre Build"
                      },
                      {
-                        "expression":"avg:aws.codebuild.build_duration{*}",
+                        "expression":"avg:aws.codebuild.build_duration{$Project,$Namespace,$ENV}",
                         "alias_name":"Build"
                      },
                      {
-                        "expression":"avg:aws.codebuild.post_build_duration{*}",
+                        "expression":"avg:aws.codebuild.post_build_duration{$Project,$Namespace,$ENV}",
                         "alias_name":"Post Build"
                      },
                      {
-                        "expression":"avg:aws.codebuild.upload_artifacts_duration{*}",
+                        "expression":"avg:aws.codebuild.upload_artifacts_duration{$Project,$Namespace,$ENV}",
                         "alias_name":"Upload"
                      }
                   ],
@@ -425,17 +430,14 @@
             "title":"Build CPU % Utilized (Top10)",
             "title_size":"16",
             "title_align":"left",
-            "time":{
-               
-            },
             "type":"query_table",
             "requests":[
                {
                   "q":"avg:aws.codebuild.cpuutilized_percent{$Project,$Namespace,$ENV} by {env, namespace, projectname, buildnumber}",
                   "alias":"CPU %",
-                  "aggregator":"avg",
                   "limit":10,
-                  "order":"desc"
+                  "order":"desc",
+                  "aggregator":"avg"
                }
             ]
          }
@@ -452,17 +454,14 @@
             "title":"Build Memory % Utilized  (Top10)",
             "title_size":"16",
             "title_align":"left",
-            "time":{
-               
-            },
             "type":"query_table",
             "requests":[
                {
                   "q":"avg:aws.codebuild.memory_utilized_percent{$Project,$Namespace,$ENV} by {env, namespace, projectname, buildnumber}",
                   "alias":"Memory %",
-                  "aggregator":"avg",
                   "limit":10,
-                  "order":"desc"
+                  "order":"desc",
+                  "aggregator":"avg"
                }
             ]
          }
@@ -479,9 +478,6 @@
             "title":"CPU units",
             "title_size":"16",
             "title_align":"left",
-            "time":{
-               
-            },
             "type":"query_value",
             "requests":[
                {
@@ -515,7 +511,7 @@
             "height":9
          },
          "definition":{
-            "title":"Failed Builds",
+            "title":"Memory Utilized",
             "title_size":"16",
             "title_align":"left",
             "time":{
@@ -544,6 +540,55 @@
             "custom_unit":"MBs",
             "text_align":"center",
             "precision":0
+         }
+      },
+      {
+         "id":5363144419721490,
+         "layout":{
+            "x":25,
+            "y":14,
+            "width":48,
+            "height":12
+         },
+         "definition":{
+            "title":"Failed Builds",
+            "title_size":"16",
+            "title_align":"left",
+            "show_legend":false,
+            "legend_layout":"auto",
+            "legend_columns":[
+               "avg",
+               "min",
+               "max",
+               "value",
+               "sum"
+            ],
+            "time":{
+               
+            },
+            "type":"timeseries",
+            "requests":[
+               {
+                  "q":"sum:aws.codebuild.failed_builds{$Project,$Namespace,$ENV} by {namespace,projectname,env}.as_count()",
+                  "on_right_yaxis":false,
+                  "style":{
+                     "palette":"warm",
+                     "line_type":"solid",
+                     "line_width":"normal"
+                  },
+                  "display_type":"bars"
+               }
+            ],
+            "yaxis":{
+               "scale":"linear",
+               "label":"",
+               "include_zero":true,
+               "min":"auto",
+               "max":"auto"
+            },
+            "markers":[
+               
+            ]
          }
       }
    ],
