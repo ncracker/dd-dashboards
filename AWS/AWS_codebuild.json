@@ -1,8 +1,9 @@
 {
    "title":"AWS CodeBuild - DD Example",
-   "description":"",
+   "description":"This dashboard shows you the current status of your AWS CodeBuild builds and the performance of your build pipeline. For more information about AWS CodeBuild, see:\n\n[Monitor AWS CodeBuild](https://docs.aws.amazon.com/codebuild/latest/userguide/monitoring-builds.html)\n\n[Datadog's AWS CodeBuild integration documentation](https://docs.datadoghq.com/integrations/amazon_codebuild)\n\nClone this template dashboard to make changes and add your own graph widgets.",
    "widgets":[
       {
+         "id":0,
          "layout":{
             "x":0,
             "y":0,
