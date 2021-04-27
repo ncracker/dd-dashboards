@@ -4,56 +4,65 @@
   "widgets":[
     {
       "id":0,
-      "definition":{
-        "type":"image",
-        "url":"/static/images/screenboard/integrations/amazon_lambda.svg",
-        "sizing":"zoom"
-      },
       "layout":{
         "x":0,
         "y":0,
         "width":13,
         "height":14
+      },
+      "definition":{
+        "type":"image",
+        "url":"/static/images/screenboard/integrations/amazon_lambda.svg",
+        "sizing":"zoom"
       }
     },
     {
       "id":1,
-      "definition":{
-        "type":"timeseries",
-        "requests":[
-          {
-            "q":"avg:aws.lambda.duration.sum{$aws_account,$region,$function,$resource,$executedVersion,$account-name} by {functionname}",
-            "display_type":"line",
-            "style":{
-              "palette":"dog_classic",
-              "line_type":"solid",
-              "line_width":"normal"
-            }
-          }
-        ],
-        "yaxis":{
-          "label":"",
-          "scale":"linear",
-          "min":"auto",
-          "max":"auto",
-          "include_zero":true
-        },
-        "title":"Execution duration by function",
-        "title_size":"16",
-        "title_align":"left",
-        "show_legend":false,
-        "legend_size":"0"
-      },
       "layout":{
         "x":34,
         "y":35,
         "width":33,
         "height":15
+      },
+      "definition":{
+        "title":"Execution duration by function",
+        "title_size":"16",
+        "title_align":"left",
+        "show_legend":false,
+        "legend_size":"0",
+        "type":"timeseries",
+        "requests":[
+          {
+            "q":"avg:aws.lambda.duration.sum{$aws_account,$region,$function,$resource,$executedVersion,$account-name} by {functionname}",
+            "style":{
+              "palette":"dog_classic",
+              "line_type":"solid",
+              "line_width":"normal"
+            },
+            "display_type":"line"
+          }
+        ],
+        "yaxis":{
+          "scale":"linear",
+          "label":"",
+          "include_zero":true,
+          "min":"auto",
+          "max":"auto"
+        }
       }
     },
     {
       "id":2,
+      "layout":{
+        "x":0,
+        "y":35,
+        "width":33,
+        "height":15
+      },
       "definition":{
+        "title":"Top invoked functions",
+        "title_size":"16",
+        "title_align":"left",
         "type":"toplist",
         "requests":[
           {
@@ -61,171 +70,171 @@
             "conditional_formats":[
               {
                 "comparator":">",
-                "value":0,
-                "palette":"white_on_green"
+                "palette":"white_on_green",
+                "value":0
               }
             ]
           }
-        ],
-        "title":"Top invoked functions",
-        "title_size":"16",
-        "title_align":"left"
-      },
-      "layout":{
-        "x":0,
-        "y":35,
-        "width":33,
-        "height":15
+        ]
       }
     },
     {
       "id":3,
-      "definition":{
-        "type":"timeseries",
-        "requests":[
-          {
-            "q":"avg:aws.lambda.errors{$aws_account,$region,$function,$resource,$executedVersion,$account-name} by {functionname}.as_count()",
-            "display_type":"bars",
-            "style":{
-              "palette":"warm",
-              "line_type":"solid",
-              "line_width":"normal"
-            }
-          }
-        ],
-        "yaxis":{
-          "label":"",
-          "scale":"linear",
-          "min":"auto",
-          "max":"auto",
-          "include_zero":true
-        },
-        "title":"Errors by function",
-        "title_size":"16",
-        "title_align":"left",
-        "show_legend":false,
-        "legend_size":"0"
-      },
       "layout":{
         "x":68,
         "y":35,
         "width":35,
         "height":15
+      },
+      "definition":{
+        "title":"Errors by function",
+        "title_size":"16",
+        "title_align":"left",
+        "show_legend":false,
+        "legend_size":"0",
+        "type":"timeseries",
+        "requests":[
+          {
+            "q":"avg:aws.lambda.errors{$aws_account,$region,$function,$resource,$executedVersion,$account-name} by {functionname}.as_count()",
+            "style":{
+              "palette":"warm",
+              "line_type":"solid",
+              "line_width":"normal"
+            },
+            "display_type":"bars"
+          }
+        ],
+        "yaxis":{
+          "scale":"linear",
+          "label":"",
+          "include_zero":true,
+          "min":"auto",
+          "max":"auto"
+        }
       }
     },
     {
       "id":4,
-      "definition":{
-        "type":"timeseries",
-        "requests":[
-          {
-            "q":"avg:aws.lambda.throttles{$aws_account,$region,$function,$resource,$executedVersion,$account-name} by {functionname}.as_count()",
-            "display_type":"bars",
-            "style":{
-              "palette":"orange",
-              "line_type":"solid",
-              "line_width":"normal"
-            }
-          }
-        ],
-        "yaxis":{
-          "label":"",
-          "scale":"linear",
-          "min":"auto",
-          "max":"auto",
-          "include_zero":true
-        },
-        "title":"Throttled invocations by function",
-        "title_size":"16",
-        "title_align":"left",
-        "show_legend":false,
-        "legend_size":"0"
-      },
       "layout":{
         "x":68,
         "y":50,
         "width":35,
         "height":15
+      },
+      "definition":{
+        "title":"Throttled invocations by function",
+        "title_size":"16",
+        "title_align":"left",
+        "show_legend":false,
+        "legend_size":"0",
+        "type":"timeseries",
+        "requests":[
+          {
+            "q":"avg:aws.lambda.throttles{$aws_account,$region,$function,$resource,$executedVersion,$account-name} by {functionname}.as_count()",
+            "style":{
+              "palette":"orange",
+              "line_type":"solid",
+              "line_width":"normal"
+            },
+            "display_type":"bars"
+          }
+        ],
+        "yaxis":{
+          "scale":"linear",
+          "label":"",
+          "include_zero":true,
+          "min":"auto",
+          "max":"auto"
+        }
       }
     },
     {
       "id":5,
-      "definition":{
-        "type":"timeseries",
-        "requests":[
-          {
-            "q":"sum:aws.lambda.invocations{$aws_account,$region,$function,$resource,$executedVersion,$account-name} by {functionname}",
-            "display_type":"line",
-            "style":{
-              "palette":"cool",
-              "line_type":"solid",
-              "line_width":"normal"
-            }
-          }
-        ],
-        "yaxis":{
-          "label":"",
-          "scale":"linear",
-          "min":"auto",
-          "max":"auto",
-          "include_zero":true
-        },
-        "title":"Function invocations",
-        "title_size":"16",
-        "title_align":"left",
-        "show_legend":false,
-        "legend_size":"0"
-      },
       "layout":{
         "x":0,
         "y":20,
         "width":33,
         "height":15
+      },
+      "definition":{
+        "title":"Function invocations",
+        "title_size":"16",
+        "title_align":"left",
+        "show_legend":false,
+        "legend_size":"0",
+        "type":"timeseries",
+        "requests":[
+          {
+            "q":"sum:aws.lambda.invocations{$aws_account,$region,$function,$resource,$executedVersion,$account-name} by {functionname}",
+            "style":{
+              "palette":"cool",
+              "line_type":"solid",
+              "line_width":"normal"
+            },
+            "display_type":"line"
+          }
+        ],
+        "yaxis":{
+          "scale":"linear",
+          "label":"",
+          "include_zero":true,
+          "min":"auto",
+          "max":"auto"
+        }
       }
     },
     {
       "id":6,
+      "layout":{
+        "x":34,
+        "y":20,
+        "width":33,
+        "height":15
+      },
       "definition":{
+        "title":"Average execution time by function",
+        "title_size":"16",
+        "title_align":"left",
         "type":"toplist",
         "requests":[
           {
             "q":"top(sum:aws.lambda.duration{$aws_account,$region,$function,$resource,$executedVersion,$account-name} by {functionname}, 20, 'mean', 'desc')"
           }
-        ],
-        "title":"Average execution time by function",
-        "title_size":"16",
-        "title_align":"left"
-      },
-      "layout":{
-        "x":34,
-        "y":20,
-        "width":33,
-        "height":15
+        ]
       }
     },
     {
       "id":7,
-      "definition":{
-        "type":"toplist",
-        "requests":[
-          {
-            "q":"top(avg:aws.lambda.duration.sum{$aws_account,$region,$function,$resource,$executedVersion,$account-name} by {functionname}, 100, 'sum', 'desc')"
-          }
-        ],
-        "title":"Total execution time",
-        "title_size":"16",
-        "title_align":"left"
-      },
       "layout":{
         "x":34,
         "y":50,
         "width":33,
         "height":15
+      },
+      "definition":{
+        "title":"Total execution time",
+        "title_size":"16",
+        "title_align":"left",
+        "type":"toplist",
+        "requests":[
+          {
+            "q":"top(avg:aws.lambda.duration.sum{$aws_account,$region,$function,$resource,$executedVersion,$account-name} by {functionname}, 100, 'sum', 'desc')"
+          }
+        ]
       }
     },
     {
       "id":8,
+      "layout":{
+        "x":68,
+        "y":20,
+        "width":35,
+        "height":15
+      },
       "definition":{
+        "title":"Errors",
+        "title_size":"16",
+        "title_align":"left",
         "type":"toplist",
         "requests":[
           {
@@ -233,25 +242,22 @@
             "conditional_formats":[
               {
                 "comparator":">",
-                "value":0,
-                "palette":"white_on_red"
+                "palette":"white_on_red",
+                "value":0
               }
             ]
           }
-        ],
-        "title":"Errors",
-        "title_size":"16",
-        "title_align":"left"
-      },
-      "layout":{
-        "x":68,
-        "y":20,
-        "width":35,
-        "height":15
+        ]
       }
     },
     {
       "id":9,
+      "layout":{
+        "x":68,
+        "y":15,
+        "width":35,
+        "height":5
+      },
       "definition":{
         "type":"note",
         "content":"Total Errors",
@@ -261,16 +267,16 @@
         "show_tick":false,
         "tick_pos":"50%",
         "tick_edge":"bottom"
-      },
-      "layout":{
-        "x":68,
-        "y":15,
-        "width":35,
-        "height":5
       }
     },
     {
       "id":10,
+      "layout":{
+        "x":34,
+        "y":15,
+        "width":33,
+        "height":5
+      },
       "definition":{
         "type":"note",
         "content":"Execution time",
@@ -280,17 +286,20 @@
         "show_tick":false,
         "tick_pos":"50%",
         "tick_edge":"bottom"
-      },
-      "layout":{
-        "x":34,
-        "y":15,
-        "width":33,
-        "height":5
       }
     },
     {
       "id":11,
+      "layout":{
+        "x":14,
+        "y":0,
+        "width":19,
+        "height":14
+      },
       "definition":{
+        "title":"Cumulative execution time",
+        "title_size":"16",
+        "title_align":"center",
         "type":"query_value",
         "requests":[
           {
@@ -298,22 +307,22 @@
             "aggregator":"sum"
           }
         ],
-        "title":"Cumulative execution time",
-        "title_size":"16",
-        "title_align":"center",
         "autoscale":true,
         "precision":0
-      },
-      "layout":{
-        "x":14,
-        "y":0,
-        "width":19,
-        "height":14
       }
     },
     {
       "id":12,
+      "layout":{
+        "x":34,
+        "y":0,
+        "width":19,
+        "height":14
+      },
       "definition":{
+        "title":"Total Errors Combined",
+        "title_size":"16",
+        "title_align":"center",
         "type":"query_value",
         "requests":[
           {
@@ -322,33 +331,30 @@
             "conditional_formats":[
               {
                 "comparator":">",
-                "value":5,
-                "palette":"white_on_red"
+                "palette":"white_on_red",
+                "value":5
               },
               {
                 "comparator":"<=",
-                "value":5,
-                "palette":"white_on_green"
+                "palette":"white_on_green",
+                "value":5
               }
             ]
           }
         ],
-        "title":"Total Errors Combined",
-        "title_size":"16",
-        "title_align":"center",
         "autoscale":true,
         "custom_unit":" ",
         "precision":0
-      },
-      "layout":{
-        "x":34,
-        "y":0,
-        "width":19,
-        "height":14
       }
     },
     {
       "id":13,
+      "layout":{
+        "x":0,
+        "y":15,
+        "width":33,
+        "height":5
+      },
       "definition":{
         "type":"note",
         "content":"Invocations",
@@ -358,89 +364,92 @@
         "show_tick":false,
         "tick_pos":"50%",
         "tick_edge":"bottom"
-      },
-      "layout":{
-        "x":0,
-        "y":15,
-        "width":33,
-        "height":5
       }
     },
     {
       "id":14,
-      "definition":{
-        "type":"timeseries",
-        "requests":[
-          {
-            "q":"avg:aws.lambda.provisioned_concurrency_utilization{$aws_account,$region,$function,$resource,$executedVersion,$account-name} by {functionname}",
-            "display_type":"line",
-            "style":{
-              "palette":"dog_classic",
-              "line_type":"solid",
-              "line_width":"normal"
-            }
-          }
-        ],
-        "yaxis":{
-          "label":"",
-          "scale":"linear",
-          "min":"auto",
-          "max":"auto",
-          "include_zero":true
-        },
-        "markers":[
-          {
-            "value":"y = 100",
-            "display_type":"warning bold",
-            "label":" 100% utilization "
-          }
-        ],
-        "title":"Provisioned concurrency utilization by function",
-        "title_size":"16",
-        "title_align":"left",
-        "show_legend":false,
-        "legend_size":"0"
-      },
       "layout":{
         "x":0,
         "y":50,
         "width":33,
         "height":15
+      },
+      "definition":{
+        "title":"Provisioned concurrency utilization by function",
+        "title_size":"16",
+        "title_align":"left",
+        "show_legend":false,
+        "legend_size":"0",
+        "type":"timeseries",
+        "requests":[
+          {
+            "q":"avg:aws.lambda.provisioned_concurrency_utilization{$aws_account,$region,$function,$resource,$executedVersion,$account-name} by {functionname}",
+            "style":{
+              "palette":"dog_classic",
+              "line_type":"solid",
+              "line_width":"normal"
+            },
+            "display_type":"line"
+          }
+        ],
+        "yaxis":{
+          "scale":"linear",
+          "label":"",
+          "include_zero":true,
+          "min":"auto",
+          "max":"auto"
+        },
+        "markers":[
+          {
+            "label":" 100% utilization ",
+            "value":"y = 100",
+            "display_type":"warning bold"
+          }
+        ]
       }
     },
     {
       "id":15,
-      "definition":{
-        "type":"query_table",
-        "requests":[
-          {
-            "q":"top(avg:aws.lambda.errors{$aws_account,$region,$function,$resource,$executedVersion,$account-name} by {functionname}.as_count()/avg:aws.lambda.invocations{$aws_account,$region,$function,$resource,$executedVersion,$account-name} by {functionname}.as_count(),10,'sum','desc')",
-            "aggregator":"avg",
-            "limit":10,
-            "order":"desc",
-            "alias":"Error fraction (1 is max)",
-            "conditional_formats":[
-              {
-                "comparator":">=",
-                "value":0.5,
-                "palette":"white_on_red"
-              }
-            ]
-          }
-        ],
-        "title":"Errors Ratio per Function (top 10)",
-        "title_size":"16",
-        "title_align":"left"
-      },
       "layout":{
         "x":68,
         "y":0,
         "width":35,
         "height":14
+      },
+      "definition":{
+        "title":"Error % per Function invocations (top 10)",
+        "title_size":"16",
+        "title_align":"left",
+        "time":{
+          
+        },
+        "type":"query_table",
+        "requests":[
+          {
+            "q":"top(avg:aws.lambda.errors{$aws_account,$region,$function,$resource,$executedVersion,$account-name} by {functionname}.as_count()/avg:aws.lambda.invocations{$aws_account,$region,$function,$resource,$executedVersion,$account-name} by {functionname}.as_count()*100,10,'sum','desc')",
+            "conditional_formats":[
+              {
+                "comparator":">=",
+                "palette":"white_on_red",
+                "value":0.5
+              }
+            ],
+            "alias":"Error %",
+            "aggregator":"avg",
+            "limit":10,
+            "order":"desc"
+          }
+        ]
       }
     },
     {
       "id":16,
+      "layout":{
+        "x":54,
+        "y":0,
+        "width":13,
+        "height":14
+      },
       "definition":{
         "type":"note",
         "content":"Poorly Performing Lambda Functions",
@@ -450,50 +459,6 @@
         "show_tick":true,
         "tick_pos":"50%",
         "tick_edge":"right"
-      },
-      "layout":{
-        "x":54,
-        "y":0,
-        "width":13,
-        "height":14
-      }
-    },
-    {
-      "id":17,
-      "definition":{
-        "type":"timeseries",
-        "requests":[
-          {
-            "q":"count_nonzero(sum:aws.lambda.invocations{$aws_account,$region,$function,$resource,$executedVersion,$account-name} by {functionname}.as_count().rollup(sum, 3600))",
-            "display_type":"bars",
-            "style":{
-              "palette":"dog_classic",
-              "line_type":"solid",
-              "line_width":"normal"
-            }
-          }
-        ],
-        "yaxis":{
-          "label":"",
-          "scale":"linear",
-          "min":"auto",
-          "max":"auto",
-          "include_zero":true
-        },
-        "title":"Invoked functions per hour",
-        "title_size":"16",
-        "title_align":"left",
-        "time":{
-          "live_span":"2d"
-        },
-        "show_legend":false,
-        "legend_size":"0"
-      },
-      "layout":{
-        "x":0,
-        "y":65,
-        "width":33,
-        "height":15
       }
     }
   ],
@@ -532,7 +497,7 @@
   "layout_type":"free",
   "is_read_only":false,
   "notify_list":[
-
+    
   ],
-  "id":"jqr-fh6-zrq"
+  "id":"59f-t2b-zc5"
 }
